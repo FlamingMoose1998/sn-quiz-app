@@ -1,4 +1,4 @@
-import { Table, StringColumn, ChoiceColumn, ReferenceColumn } from '@servicenow/sdk/core';
+import { Table, StringColumn, BooleanColumn, ChoiceColumn, ReferenceColumn } from '@servicenow/sdk/core';
 
 export const x_0221_quiz_app_question = Table({
     name: 'x_0221_quiz_app_question',
@@ -36,6 +36,18 @@ export const x_0221_quiz_app_question = Table({
         filename: StringColumn({
             label: 'Filename',
             maxLength: 400,
+        }),
+        difficulty: ChoiceColumn({
+            label: 'Difficulty',
+            choices: {
+                1: 'Easy',
+                2: 'Medium',
+                3: 'Hard',
+            },
+        }),
+        fullscreen: BooleanColumn({
+            label: 'Fullscreen',
+            default: false,
         }),
     },
 });
