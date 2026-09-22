@@ -1,0 +1,6 @@
+{
+  "scope": "x_0221_quiz_app",
+  "scopeId": "5843e1c883ef4bd0429b6260ceaad3ae",
+  "name": "Quiz App",
+  "tsconfigPath": "./src/server/tsconfig.json"
+}
