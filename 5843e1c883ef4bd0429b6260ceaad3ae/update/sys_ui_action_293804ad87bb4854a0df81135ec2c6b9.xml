@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_action">
+    <sys_ui_action action="INSERT_OR_UPDATE">
+        <action_name>delete_quiz</action_name>
+        <active>true</active>
+        <client>true</client>
+        <client_script_v2/>
+        <comments/>
+        <condition/>
+        <form_action>true</form_action>
+        <form_button>true</form_button>
+        <form_button_icon/>
+        <form_button_v2>false</form_button_v2>
+        <form_context_menu>false</form_context_menu>
+        <form_link>false</form_link>
+        <form_menu_button_v2>false</form_menu_button_v2>
+        <form_style>destructive</form_style>
+        <format_for_configurable_workspace>false</format_for_configurable_workspace>
+        <hint/>
+        <isolate_script>false</isolate_script>
+        <list_action>false</list_action>
+        <list_banner_button>false</list_banner_button>
+        <list_button>false</list_button>
+        <list_button_icon/>
+        <list_choice>false</list_choice>
+        <list_context_menu>false</list_context_menu>
+        <list_link>false</list_link>
+        <list_save_with_form_button>false</list_save_with_form_button>
+        <list_style/>
+        <messages/>
+        <name>Delete Quiz</name>
+        <onclick>confirmDeleteQuiz()</onclick>
+        <order>100</order>
+        <script><![CDATA[
+function confirmDeleteQuiz() {
+    if (confirm('Are you sure you want to delete this quiz? Orphaned rounds and questions will also be removed.')) {
+        gsftSubmit(null, g_form.getFormElement(), 'delete_quiz');
+    }
+}
+
+if (typeof window == 'undefined') {
+    deleteQuiz();
+}
+
+function deleteQuiz() {
+    const quizSysId = current.getUniqueValue();
+    const roundsToCheck = [];
+
+    // 1. Collect rounds linked to this quiz and delete the quiz_round junctions
+    const grQuizRound = new GlideRecord('x_0221_quiz_app_quiz_round');
+    grQuizRound.addQuery('quiz', quizSysId);
+    grQuizRound.query();
+    while (grQuizRound.next()) {
+        roundsToCheck.push(grQuizRound.getValue('round'));
+        grQuizRound.deleteRecord();
+    }
+
+    // 2. For each round, check if it still appears in another quiz
+    for (const roundSysId of roundsToCheck) {
+        const grOtherQuizRound = new GlideRecord('x_0221_quiz_app_quiz_round');
+        grOtherQuizRound.addQuery('round', roundSysId);
+        grOtherQuizRound.setLimit(1);
+        grOtherQuizRound.query();
+
+        if (!grOtherQuizRound.hasNext()) {
+            // Round is orphaned — collect its questions before deleting junctions
+            const questionsToCheck = [];
+            const grRoundQuestion = new GlideRecord('x_0221_quiz_app_round_question');
+            grRoundQuestion.addQuery('round', roundSysId);
+            grRoundQuestion.query();
+            while (grRoundQuestion.next()) {
+                questionsToCheck.push(grRoundQuestion.getValue('question'));
+                grRoundQuestion.deleteRecord();
+            }
+
+            // 3. For each question, check if it still appears in another round
+            for (const questionSysId of questionsToCheck) {
+                const grOtherRoundQuestion = new GlideRecord('x_0221_quiz_app_round_question');
+                grOtherRoundQuestion.addQuery('question', questionSysId);
+                grOtherRoundQuestion.setLimit(1);
+                grOtherRoundQuestion.query();
+
+                if (!grOtherRoundQuestion.hasNext()) {
+                    // Question is orphaned — delete it
+                    const grQuestion = new GlideRecord('x_0221_quiz_app_question');
+                    if (grQuestion.get(questionSysId)) {
+                        grQuestion.deleteRecord();
+                    }
+                }
+            }
+
+            // Delete the orphaned round
+            const grRound = new GlideRecord('x_0221_quiz_app_round');
+            if (grRound.get(roundSysId)) {
+                grRound.deleteRecord();
+            }
+        }
+    }
+
+    // 4. Delete the quiz itself
+    current.deleteRecord();
+
+    gs.addInfoMessage('Quiz and orphaned rounds/questions have been deleted.');
+    action.setRedirectURL('x_0221_quiz_app_quiz_list.do');
+}]]></script>
+        <show_form_icon_only>false</show_form_icon_only>
+        <show_insert>true</show_insert>
+        <show_list_icon_only>false</show_list_icon_only>
+        <show_multiple_update>false</show_multiple_update>
+        <show_query>false</show_query>
+        <show_update>true</show_update>
+        <sys_class_name>sys_ui_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-22 15:43:41</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>293804ad87bb4854a0df81135ec2c6b9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Delete Quiz</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Quiz App" source="x_0221_quiz_app">5843e1c883ef4bd0429b6260ceaad3ae</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Quiz App">5843e1c883ef4bd0429b6260ceaad3ae</sys_scope>
+        <sys_update_name>sys_ui_action_293804ad87bb4854a0df81135ec2c6b9</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-22 15:43:41</sys_updated_on>
+        <table>x_0221_quiz_app_quiz</table>
+        <ui11_compatible>false</ui11_compatible>
+        <ui16_compatible>false</ui16_compatible>
+    </sys_ui_action>
+</record_update>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="ec3bb5e8836b8fd0429b6260ceaad3ce" label="Audience" max_length="40" name="x_0221_quiz_app_audience" type="collection">
+        <element display="true" label="Name" mandatory="true" max_length="40" name="name" type="string"/>
+    </element>
+</database>

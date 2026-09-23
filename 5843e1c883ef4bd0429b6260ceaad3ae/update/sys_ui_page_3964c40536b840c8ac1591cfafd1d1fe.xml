@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category/>
+        <client_script/>
+        <description/>
+        <direct>true</direct>
+        <endpoint>x_0221_quiz_app_import.do</endpoint>
+        <html><![CDATA[
+<!-- @fluent-import-html WARNING: This file was imported from the output of a static build. Modifications of any kind are likely to result in unintended behavior. In most cases, you should edit the source file of the HTML imported below. If you are absolutely certain you want to take control of this HTML, you can remove this comment to prevent the SDK from regenerating it. However, you will then be responsible for the management of this HTML in your Fluent file. -->
+<html class="-polaris">
+  <head>
+    <title>Quiz App - Import</title>
+    <!-- @sdk:now-ux-globals -->
+    <!-- Resolved from sdk:now-ux-globals tag at NowSDK build time to support earlier Glide releases -->
+    <script>window.NOW = {};
+window.NOW.user = {};
+window.NOW.batch_glide_ajax_requests = false;
+window.NOW.isUsingPolaris = true;
+window.NOW.exclude_dark_theme = "false";
+window.g_ck = "$[gs.getSession().getSessionToken() || gs.getSessionToken()]";</script>
+    <!-- Include ServiceNow's required scripts -->
+    <g:requires name="scripts/doctype/functions_bootstrap14.js"></g:requires>
+    <g:requires name="scripts/lib/prototype.js"></g:requires>
+    <g:requires name="scripts/classes/ajax/GlideURL.js"></g:requires>
+    <g:requires name="scripts/doctype/CustomEventManager.js"></g:requires>
+    <g:requires name="scripts/classes/ajax/GlideAjax.js"></g:requires>
+    <g:requires name="scripts/classes/GlideUser.js"></g:requires>
+    <g2:client_script type="user"></g2:client_script>
+    <link rel="preload" href="/uxasset/set-cache-buster/$[UxFrameworkScriptables.getFlushTimestamp()].js" as="script"></link>
+    <g:requires name="scripts/polaris_theme_refresh_observer.js"></g:requires>
+    <link data-source-id="glide-theme" id="polarisberg_theme_variables" rel="stylesheet" href="/$uxappimmutables.do?sysparm_request_type=ux_theme$[AMP]sysparm_app_sys_id=c86a62e2c7022010099a308dc7c26022$[AMP]uxpcb=$[sn_ui.PolarisUI.getThemeVariableCssCacheKey()]"></link>
+    <script type="module" src="/uxasset/externals/@devsnc/library-uxf/index.jsdbx"></script>
+    <!-- @sdk:now-ux-globals -->
+    <script src="/uxasset/externals/x_0221_quiz_app/main.jsdbx?uxpcb=$[UxFrameworkScriptables.getFlushTimestamp()]" type="module"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>]]></html>
+        <name>import</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-22 14:54:47</sys_created_on>
+        <sys_id>3964c40536b840c8ac1591cfafd1d1fe</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>import</sys_name>
+        <sys_package display_value="Quiz App" source="x_0221_quiz_app">5843e1c883ef4bd0429b6260ceaad3ae</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Quiz App">5843e1c883ef4bd0429b6260ceaad3ae</sys_scope>
+        <sys_update_name>sys_ui_page_3964c40536b840c8ac1591cfafd1d1fe</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-22 14:54:47</sys_updated_on>
+    </sys_ui_page>
+    <sn_glider_source_artifact_m2m action="INSERT_OR_UPDATE">
+        <application_file display_value="import">3964c40536b840c8ac1591cfafd1d1fe</application_file>
+        <source_artifact display_value="x_0221_quiz_app_import.do - BYOUI Files">985e27878742424fad927ada46cfec78</source_artifact>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-22 14:54:47</sys_created_on>
+        <sys_id>cd2b645012dc4830aa14b3ed3e2a58a4</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-22 14:54:47</sys_updated_on>
+    </sn_glider_source_artifact_m2m>
+    <sn_glider_source_artifact action="INSERT_OR_UPDATE">
+        <name>x_0221_quiz_app_import.do - BYOUI Files</name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-22 14:54:47</sys_created_on>
+        <sys_id>985e27878742424fad927ada46cfec78</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-22 14:54:47</sys_updated_on>
+    </sn_glider_source_artifact>
+    <sys_attachment action="INSERT_OR_UPDATE">
+        <average_image_color/>
+        <chunk_size_bytes>933336</chunk_size_bytes>
+        <compressed>true</compressed>
+        <content_type>application/zip</content_type>
+        <file_name>x_0221_quiz_app_import.do - BYOUI Files.zip</file_name>
+        <hash>adad967fc6d640c3da2b47478867ae9b169821b9ecbbdebea73d54bfeb2402ee</hash>
+        <image_height/>
+        <image_width/>
+        <size_bytes>9600</size_bytes>
+        <size_compressed>3345</size_compressed>
+        <state/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-22 14:54:47</sys_created_on>
+        <sys_id>e835bbc76994b865cb286a7e6222be96</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-22 14:54:47</sys_updated_on>
+        <table_name>sn_glider_source_artifact</table_name>
+        <table_sys_id>985e27878742424fad927ada46cfec78</table_sys_id>
+    </sys_attachment>
+    <sys_attachment_doc action="INSERT_OR_UPDATE">
+        <data>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</data>
+        <length/>
+        <position>0</position>
+        <sys_attachment display_value="x_0221_quiz_app_import.do - BYOUI Files.zip" sys_id="e835bbc76994b865cb286a7e6222be96">e835bbc76994b865cb286a7e6222be96</sys_attachment>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-22 14:54:47</sys_created_on>
+        <sys_id>7ed880def9e95fa64a251e27d5d89ecc</sys_id>
+    </sys_attachment_doc>
+</record_update>

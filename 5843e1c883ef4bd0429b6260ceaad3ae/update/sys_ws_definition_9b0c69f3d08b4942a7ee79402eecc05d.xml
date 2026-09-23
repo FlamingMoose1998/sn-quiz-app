@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_definition">
+    <sys_ws_definition action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <base_uri>/api/x_0221_quiz_app/quiz_import</base_uri>
+        <consumes>application/json</consumes>
+        <consumes_customized>true</consumes_customized>
+        <default_version>No active default version</default_version>
+        <doc_link/>
+        <enforce_acl>cf9d01d3e73003009d6247e603f6a990</enforce_acl>
+        <is_versioned>false</is_versioned>
+        <name>Quiz Import API</name>
+        <namespace>x_0221_quiz_app</namespace>
+        <produces>application/json</produces>
+        <produces_customized>true</produces_customized>
+        <service_id>quiz_import</service_id>
+        <short_description>API to import quiz data from JSON</short_description>
+        <sys_class_name>sys_ws_definition</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-22 14:28:27</sys_created_on>
+        <sys_id>9b0c69f3d08b4942a7ee79402eecc05d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Quiz Import API</sys_name>
+        <sys_package display_value="Quiz App" source="x_0221_quiz_app">5843e1c883ef4bd0429b6260ceaad3ae</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Quiz App">5843e1c883ef4bd0429b6260ceaad3ae</sys_scope>
+        <sys_update_name>sys_ws_definition_9b0c69f3d08b4942a7ee79402eecc05d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-22 14:28:27</sys_updated_on>
+    </sys_ws_definition>
+</record_update>

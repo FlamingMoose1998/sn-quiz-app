@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="672b75e8836b8fd0429b6260ceaad33f" label="Question" max_length="40" name="x_0221_quiz_app_question" type="collection">
+        <element display="true" label="Question" mandatory="true" max_length="400" name="question" type="string"/>
+        <element label="Type" max_length="40" name="type" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="1234" sequence="1" value="1234"/>
+                <element inactive_on_update="false" label="Normal" sequence="2" value="normal"/>
+            </choice>
+        </element>
+        <element label="Media Type" max_length="40" name="media_type" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Video" sequence="3" value="video"/>
+                <element inactive_on_update="false" label="Audio" sequence="2" value="audio"/>
+                <element inactive_on_update="false" label="Image" sequence="1" value="image"/>
+            </choice>
+        </element>
+        <element label="Category" max_length="32" name="category" reference="x_0221_quiz_app_category" type="reference"/>
+        <element label="Difficulty" max_length="40" name="difficulty" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Medium" sequence="2" value="2"/>
+                <element inactive_on_update="false" label="Easy" sequence="1" value="1"/>
+                <element inactive_on_update="false" label="Hard" sequence="3" value="3"/>
+            </choice>
+        </element>
+        <element label="Filename" max_length="400" name="filename" type="string"/>
+        <element label="Fullscreen" max_length="40" name="fullscreen" type="boolean"/>
+        <element label="Answer" max_length="400" name="answer" type="string"/>
+        <index name="index">
+            <element name="category"/>
+        </index>
+    </element>
+</database>

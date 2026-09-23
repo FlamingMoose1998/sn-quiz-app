@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="603bb5e8836b8fd0429b6260ceaad3fc" label="Round Question" max_length="40" name="x_0221_quiz_app_round_question" type="collection">
+        <element label="Question" mandatory="true" max_length="32" name="question" reference="x_0221_quiz_app_question" type="reference"/>
+        <element label="Round" mandatory="true" max_length="32" name="round" reference="x_0221_quiz_app_round" type="reference"/>
+        <index name="index">
+            <element name="question"/>
+        </index>
+        <index name="index2">
+            <element name="round"/>
+        </index>
+    </element>
+</database>

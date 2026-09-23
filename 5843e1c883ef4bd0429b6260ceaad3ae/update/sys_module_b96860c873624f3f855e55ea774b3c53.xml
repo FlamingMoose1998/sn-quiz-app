@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_module">
+    <sys_module action="INSERT_OR_UPDATE">
+        <content><![CDATA[{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "serialNumber": "urn:uuid:406b435d-bd55-43f3-9ff5-0fc2f1086f2e",
+  "metadata": {
+    "timestamp": "2026-09-22T15:43:08.535Z",
+    "tools": {
+      "components": [
+        {
+          "type": "library",
+          "name": "sdk-build-plugins",
+          "group": "@servicenow",
+          "version": "4.12.2",
+          "author": "ServiceNow"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "name": "x-0221-quiz-app",
+      "version": "1.0.0",
+      "bom-ref": "pkg:servicenow/x-0221-quiz-app@1.0.0?sys_scope_id=5843e1c883ef4bd0429b6260ceaad3ae",
+      "description": "[BUILD AGENT GENERATED]:  An application to store quizzes with their rounds and questions, and allow users to add, update, remove and reorder them.",
+      "licenses": [
+        {
+          "license": {
+            "name": "UNLICENSED"
+          }
+        }
+      ],
+      "purl": "pkg:servicenow/x-0221-quiz-app@1.0.0?sys_scope_id=5843e1c883ef4bd0429b6260ceaad3ae"
+    }
+  },
+  "components": [],
+  "dependencies": [
+    {
+      "ref": "pkg:servicenow/x-0221-quiz-app@1.0.0?sys_scope_id=5843e1c883ef4bd0429b6260ceaad3ae"
+    }
+  ]
+}]]></content>
+        <external_source>false</external_source>
+        <path>x_0221_quiz_app/x-0221-quiz-app/1.0.0/bom.json</path>
+        <sys_class_name>sys_module</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-22 10:58:12</sys_created_on>
+        <sys_id>b96860c873624f3f855e55ea774b3c53</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_0221_quiz_app/x-0221-quiz-app/1.0.0/bom.json</sys_name>
+        <sys_package display_value="Quiz App" source="x_0221_quiz_app">5843e1c883ef4bd0429b6260ceaad3ae</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Quiz App">5843e1c883ef4bd0429b6260ceaad3ae</sys_scope>
+        <sys_update_name>sys_module_b96860c873624f3f855e55ea774b3c53</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-22 10:58:12</sys_updated_on>
+    </sys_module>
+</record_update>
