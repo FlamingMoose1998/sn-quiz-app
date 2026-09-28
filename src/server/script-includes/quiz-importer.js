@@ -5,11 +5,11 @@ QuizImporter.prototype = {
     },
 
     /**
-     * Import a quiz from a JSON string
-     * @param {string} jsonString - JSON string containing quiz data
+     * Import a quiz from a raw_json record
+     * @param {string} rawJsonSysId - sys_id of the raw_json record containing quiz data
      * @returns {object} Result object with counts and quiz sys_id
      */
-    importQuiz: function (jsonString) {
+    importQuiz: function (rawJsonSysId) {
         const result = {
             success: false,
             quizId: '',
@@ -26,6 +26,14 @@ QuizImporter.prototype = {
         };
 
         try {
+            // Read the raw_json record
+            const grRawJson = new GlideRecord('x_0221_quiz_app_raw_json');
+            if (!grRawJson.get(rawJsonSysId)) {
+                result.errors.push(`raw_json record not found: ${rawJsonSysId}`);
+                return result;
+            }
+
+            const jsonString = grRawJson.getValue('json');
             const { name, number, date, audience, rounds = [] } = JSON.parse(jsonString);
 
             // 1. Find or create Audience
@@ -72,7 +80,7 @@ QuizImporter.prototype = {
                 grQuizRound.insert();
                 result.counts.quizRounds++;
 
-                // For rounds with questions (not "1ak" type with only answers)
+                // Process questions in this round
                 for (const questionData of questions) {
                     const { textNl, answerNl, type: qType, category, difficulty, mediaType, media, fullscreen } = questionData;
 
@@ -83,11 +91,19 @@ QuizImporter.prototype = {
                         this._categoryCache[`__counted_${category}`] = true;
                     }
 
-                    // Create Question
+                    // Create QA record
+                    const grQa = new GlideRecord('x_0221_quiz_app_qa');
+                    grQa.initialize();
+                    grQa.setValue('question', textNl || '');
+                    grQa.setValue('answer', answerNl || '');
+                    const qaSysId = grQa.insert();
+
+                    // Create Question with qa reference
                     const grQuestion = new GlideRecord('x_0221_quiz_app_question');
                     grQuestion.initialize();
                     grQuestion.setValue('question', textNl || '');
                     grQuestion.setValue('answer', answerNl || '');
+                    grQuestion.setValue('qa', qaSysId);
                     grQuestion.setValue('type', qType || 'normal');
                     grQuestion.setValue('category', categorySysId);
                     grQuestion.setValue('difficulty', String(difficulty || ''));
