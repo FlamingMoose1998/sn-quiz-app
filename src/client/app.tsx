@@ -4,30 +4,22 @@ import { Card } from "@servicenow/react-components/Card";
 import { CardHeader } from "@servicenow/react-components/CardHeader";
 import "./app.css";
 
-interface ImportResult {
+interface StoreResult {
   success: boolean;
-  quizId: string;
-  counts: {
-    quizzes: number;
-    rounds: number;
-    questions: number;
-    categories: number;
-    audiences: number;
-    quizRounds: number;
-    roundQuestions: number;
-  };
-  errors: string[];
+  rawJsonId: string;
+  name: string;
 }
 
 interface ApiResponse {
-  result: ImportResult;
+  result: StoreResult;
 }
 
 export default function App() {
   const [jsonContent, setJsonContent] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [importing, setImporting] = useState(false);
-  const [result, setResult] = useState<ImportResult | null>(null);
+  const [result, setResult] = useState<StoreResult | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleBrowseClick = useCallback(() => {
@@ -40,6 +32,7 @@ export default function App() {
       if (!file) return;
       setFileName(file.name);
       setResult(null);
+      setError(null);
       const reader = new FileReader();
       reader.onload = (evt) => {
         const text = evt.target?.result as string;
@@ -59,6 +52,7 @@ export default function App() {
     if (!jsonContent) return;
     setImporting(true);
     setResult(null);
+    setError(null);
     try {
       const response = await fetch(
         "/api/x_0221_quiz_app/quiz_import/import",
@@ -72,22 +66,13 @@ export default function App() {
         }
       );
       const data: ApiResponse = await response.json();
-      setResult(data.result);
+      if (data.result.success) {
+        setResult(data.result);
+      } else {
+        setError("Failed to store JSON. Please try again.");
+      }
     } catch (err: any) {
-      setResult({
-        success: false,
-        quizId: "",
-        counts: {
-          quizzes: 0,
-          rounds: 0,
-          questions: 0,
-          categories: 0,
-          audiences: 0,
-          quizRounds: 0,
-          roundQuestions: 0,
-        },
-        errors: [err.message || "Network error occurred"],
-      });
+      setError(err.message || "Network error occurred");
     } finally {
       setImporting(false);
     }
@@ -97,6 +82,7 @@ export default function App() {
     setJsonContent(null);
     setFileName(null);
     setResult(null);
+    setError(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -106,8 +92,9 @@ export default function App() {
     <div className="quiz-import-page">
       <h1 className="quiz-import-header">Import Quiz</h1>
       <p className="quiz-import-description">
-        Select a JSON file containing quiz data to import into the Quiz App.
-        Preview the contents before importing.
+        Select a JSON file containing quiz data. The JSON will be stored for
+        review, then you can process it into quiz records from the Raw JSON
+        record.
       </p>
 
       <input
@@ -118,7 +105,7 @@ export default function App() {
         onChange={handleFileChange}
       />
 
-      {!jsonContent && (
+      {!jsonContent && !result && (
         <div className="quiz-import-upload-area">
           <p className="quiz-import-upload-text">
             Choose a JSON file to preview and import
@@ -132,14 +119,14 @@ export default function App() {
         </div>
       )}
 
-      {jsonContent && (
+      {jsonContent && !result && (
         <div className="quiz-import-preview-card">
           <Card size="md">
             <CardHeader tagline={{ label: "File Preview" }} heading={{ label: fileName || "Selected File", level: 3 }} />
             <pre className="quiz-import-json-preview">{jsonContent}</pre>
             <div className="quiz-import-actions">
               <Button
-                label={importing ? "Importing..." : "Import Quiz"}
+                label={importing ? "Storing..." : "Import Quiz"}
                 variant="primary"
                 size="md"
                 disabled={importing}
@@ -159,43 +146,39 @@ export default function App() {
 
       {importing && (
         <div className="quiz-import-loading">
-          Importing quiz data, please wait...
+          Storing quiz JSON, please wait...
         </div>
       )}
 
       {result && result.success && (
         <div className="quiz-import-result quiz-import-result--positive">
           <p className="quiz-import-result-title">
-            Quiz imported successfully!
+            JSON stored successfully!
           </p>
-          <ul className="quiz-import-counts">
-            <li>
-              <strong>{result.counts.quizzes}</strong> quiz
-            </li>
-            <li>
-              <strong>{result.counts.rounds}</strong> rounds
-            </li>
-            <li>
-              <strong>{result.counts.questions}</strong> questions
-            </li>
-            <li>
-              <strong>{result.counts.categories}</strong> categories
-            </li>
-            <li>
-              <strong>{result.counts.audiences}</strong> audiences
-            </li>
-          </ul>
+          <p className="quiz-import-result-text">
+            Quiz &quot;{result.name}&quot; has been saved. Open the Raw JSON
+            record to process it into quiz records.
+          </p>
+          <p className="quiz-import-result-text">
+            <a href={`/x_0221_quiz_app_raw_json.do?sys_id=${result.rawJsonId}`}>
+              Open Raw JSON record
+            </a>
+          </p>
+          <div className="quiz-import-actions">
+            <Button
+              label="Import Another"
+              variant="secondary"
+              size="md"
+              onClicked={handleCancel}
+            />
+          </div>
         </div>
       )}
 
-      {result && !result.success && (
+      {error && (
         <div className="quiz-import-result quiz-import-result--critical">
           <p className="quiz-import-result-title">Import failed</p>
-          {result.errors.map((error, idx) => (
-            <p key={idx} className="quiz-import-result-text">
-              {error}
-            </p>
-          ))}
+          <p className="quiz-import-result-text">{error}</p>
         </div>
       )}
     </div>

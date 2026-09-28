@@ -4,6 +4,7 @@ export const x_0221_quiz_app_question = Table({
     name: 'x_0221_quiz_app_question',
     label: 'Question',
     display: 'question',
+    extensible: true,
     schema: {
         question: StringColumn({
             label: 'Question',
@@ -13,6 +14,10 @@ export const x_0221_quiz_app_question = Table({
         answer: StringColumn({
             label: 'Answer',
             maxLength: 400,
+        }),
+        qa: ReferenceColumn({
+            label: 'QA',
+            referenceTable: 'x_0221_quiz_app_qa',
         }),
         type: ChoiceColumn({
             label: 'Type',

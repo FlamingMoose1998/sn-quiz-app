@@ -14,12 +14,16 @@ RestApi({
             name: 'Import Quiz',
             method: 'POST',
             path: '/import',
-            shortDescription: 'Import a quiz from JSON payload',
+            shortDescription: 'Store quiz JSON in raw_json table for processing',
             script: `(function process(request, response) {
     const body = request.body.dataString;
-    const importer = new x_0221_quiz_app.QuizImporter();
-    const result = importer.importQuiz(body);
-    response.setBody(result);
+    const data = JSON.parse(body);
+    const grRawJson = new GlideRecord('x_0221_quiz_app_raw_json');
+    grRawJson.initialize();
+    grRawJson.setValue('name', data.name || 'Unnamed Quiz');
+    grRawJson.setValue('json', body);
+    const sysId = grRawJson.insert();
+    response.setBody({ success: true, rawJsonId: sysId.toString(), name: data.name });
 })(request, response)`,
         },
     ],
