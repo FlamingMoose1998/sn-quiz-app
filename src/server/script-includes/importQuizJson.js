@@ -1,0 +1,372 @@
+const importQuizJson = Class.create();
+importQuizJson.prototype = {
+    // call from ui action or br: new x_0221_quiz_app.importQuizJson().write(current)
+    initialize: function () {
+        this._categoryCache = {};
+    },
+
+    write: function (grRawJson) {
+        const s = grRawJson.getValue('json');
+        json = JSON.parse(s);
+
+        writeQuiz(json);
+    },
+
+
+
+
+
+    /**
+     * Import a quiz from a raw_json record
+     * @param {string} rawJsonSysId - sys_id of the raw_json record containing quiz data
+     * @returns {object} Result object with counts and quiz sys_id
+     */
+    importQuiz: function (rawJsonSysId) {
+        const result = {
+            success: false,
+            quizId: '',
+            counts: {
+                quizzes: 0,
+                rounds: 0,
+                questions: 0,
+                categories: 0,
+                audiences: 0,
+                quizRounds: 0,
+                roundQuestions: 0,
+            },
+            errors: [],
+        };
+
+        try {
+            // Read the raw_json record
+            const grRawJson = new GlideRecord('x_0221_quiz_app_raw_json');
+            if (!grRawJson.get(rawJsonSysId)) {
+                result.errors.push(`raw_json record not found: ${rawJsonSysId}`);
+                return result;
+            }
+
+            const jsonString = grRawJson.getValue('json');
+            const { name, number, date, audience, rounds = [] } = JSON.parse(jsonString);
+
+            // 1. Find or create Audience
+            const audienceSysId = this._findOrCreateAudience(audience);
+            if (audienceSysId) {
+                result.counts.audiences++;
+            }
+
+            // 2. Create Quiz
+            const grQuiz = new GlideRecord('x_0221_quiz_app_quiz');
+            grQuiz.initialize();
+            grQuiz.setValue('name', name);
+            grQuiz.setValue('number', number);
+            grQuiz.setValue('date', this._convertDate(date));
+            grQuiz.setValue('audience', audienceSysId);
+            const quizSysId = grQuiz.insert();
+            result.counts.quizzes++;
+            result.quizId = quizSysId.toString();
+
+            // 3. Loop through rounds
+            for (const roundData of rounds) {
+                const { name: roundName, roundNumber, type, theme, path, questions = [] } = roundData;
+
+                // Create Round
+                const grRound = new GlideRecord('x_0221_quiz_app_round');
+                grRound.initialize();
+                grRound.setValue('name', roundName || '');
+                grRound.setValue('number', String(roundNumber));
+                grRound.setValue('type', type);
+                if (theme) {
+                    grRound.setValue('theme', theme);
+                }
+                if (path) {
+                    grRound.setValue('path', path);
+                }
+                const roundSysId = grRound.insert();
+                result.counts.rounds++;
+
+                // Create Quiz_Round junction
+                const grQuizRound = new GlideRecord('x_0221_quiz_app_quiz_round');
+                grQuizRound.initialize();
+                grQuizRound.setValue('quiz', quizSysId);
+                grQuizRound.setValue('round', roundSysId);
+                grQuizRound.insert();
+                result.counts.quizRounds++;
+
+                // Process questions in this round
+                for (const questionData of questions) {
+                    const { textNl, answerNl, type: qType, category, difficulty, mediaType, media, fullscreen } = questionData;
+
+                    // Find or create Category
+                    const categorySysId = this._findOrCreateCategory(category);
+                    if (categorySysId && !this._categoryCache[`__counted_${category}`]) {
+                        result.counts.categories++;
+                        this._categoryCache[`__counted_${category}`] = true;
+                    }
+
+                    // Create QA record
+                    const grQa = new GlideRecord('x_0221_quiz_app_qa');
+                    grQa.initialize();
+                    grQa.setValue('question', textNl || '');
+                    grQa.setValue('answer', answerNl || '');
+                    const qaSysId = grQa.insert();
+
+                    // Create Question with qa reference
+                    const grQuestion = new GlideRecord('x_0221_quiz_app_question');
+                    grQuestion.initialize();
+                    grQuestion.setValue('question', textNl || '');
+                    grQuestion.setValue('answer', answerNl || '');
+                    grQuestion.setValue('qa', qaSysId);
+                    grQuestion.setValue('type', qType || 'normal');
+                    grQuestion.setValue('category', categorySysId);
+                    grQuestion.setValue('difficulty', String(difficulty || ''));
+
+                    if (mediaType) {
+                        grQuestion.setValue('media_type', mediaType);
+                    }
+                    if (media) {
+                        grQuestion.setValue('filename', media);
+                    }
+                    grQuestion.setValue('fullscreen', fullscreen ? 'true' : 'false');
+
+                    const questionSysId = grQuestion.insert();
+                    result.counts.questions++;
+
+                    // Create Round_Question junction
+                    const grRoundQuestion = new GlideRecord('x_0221_quiz_app_round_question');
+                    grRoundQuestion.initialize();
+                    grRoundQuestion.setValue('round', roundSysId);
+                    grRoundQuestion.setValue('question', questionSysId);
+                    grRoundQuestion.insert();
+                    result.counts.roundQuestions++;
+                }
+            }
+
+            result.success = true;
+        } catch (e) {
+            result.success = false;
+            result.errors.push(`Error importing quiz: ${e.message}`);
+            gs.error(`importQuizJson: Error importing quiz - ${e.message}`);
+        }
+
+        return result;
+    },
+
+    /**
+     * Find an existing audience by name, or create a new one
+     * @param {string} name - The audience name
+     * @returns {string} The sys_id of the audience record
+     */
+    _findOrCreateAudience: function (name) {
+        if (!name) {
+            return '';
+        }
+
+        const grAudience = new GlideRecord('x_0221_quiz_app_audience');
+        grAudience.addQuery('name', name);
+        grAudience.query();
+        if (grAudience.next()) {
+            return grAudience.getUniqueValue();
+        }
+
+        // Create new audience
+        grAudience.initialize();
+        grAudience.setValue('name', name);
+        return grAudience.insert().toString();
+    },
+
+    /**
+     * Find an existing category by name, or create a new one (cached)
+     * @param {string} name - The category name
+     * @returns {string} The sys_id of the category record
+     */
+    _findOrCreateCategory: function (name) {
+        if (!name) {
+            return '';
+        }
+
+        // Check cache first
+        if (this._categoryCache[name]) {
+            return this._categoryCache[name];
+        }
+
+        const grCategory = new GlideRecord('x_0221_quiz_app_category');
+        grCategory.addQuery('name', name);
+        grCategory.query();
+        if (grCategory.next()) {
+            const sysId = grCategory.getUniqueValue();
+            this._categoryCache[name] = sysId;
+            return sysId;
+        }
+
+        // Create new category
+        grCategory.initialize();
+        grCategory.setValue('name', name);
+        const newSysId = grCategory.insert().toString();
+        this._categoryCache[name] = newSysId;
+        return newSysId;
+    },
+
+    /**
+     * Convert date from DD-MM-YYYY to YYYY-MM-DD format
+     * @param {string} dateStr - Date in DD-MM-YYYY format
+     * @returns {string} Date in YYYY-MM-DD format
+     */
+    _convertDate: function (dateStr) {
+        if (!dateStr) {
+            return '';
+        }
+
+        const [day, month, year] = dateStr.split('-');
+        if (!year) {
+            return dateStr;
+        }
+
+        return `${year}-${month}-${day}`;
+    },
+
+    type: 'importQuizJson',
+};
+
+
+function writeQuiz(quizJson) {
+    const result = {
+        success: false,
+        quizId: '',
+        counts: {
+            quizzes: 0,
+            rounds: 0,
+            questions: 0,
+            categories: 0,
+            audiences: 0,
+            quizRounds: 0,
+            roundQuestions: 0,
+        },
+        errors: [],
+    };
+
+    try {
+        const { name, number, date, audience, rounds = [] } = quizJson;
+
+        const audienceSysId = findOrCreateAudience(audience);
+        if (audienceSysId) {
+            result.counts.audiences++;
+        }
+
+        // 2. Create Quiz
+        const grQuiz = new GlideRecord('x_0221_quiz_app_quiz');
+        grQuiz.initialize();
+        grQuiz.setValue('name', name);
+        grQuiz.setValue('number', number);
+        grQuiz.setValue('date', this._convertDate(date));
+        grQuiz.setValue('audience', audienceSysId);
+        const quizSysId = grQuiz.insert();
+        result.counts.quizzes++;
+        result.quizId = quizSysId.toString();
+
+        // 3. Loop through rounds
+        for (const roundData of rounds) {
+            const { name: roundName, roundNumber, type, theme, path, questions = [] } = roundData;
+
+            // Create Round
+            const grRound = new GlideRecord('x_0221_quiz_app_round');
+            grRound.initialize();
+            grRound.setValue('name', roundName || '');
+            grRound.setValue('number', String(roundNumber));
+            grRound.setValue('type', type);
+            if (theme) {
+                grRound.setValue('theme', theme);
+            }
+            if (path) {
+                grRound.setValue('path', path);
+            }
+            const roundSysId = grRound.insert();
+            result.counts.rounds++;
+
+            // Create Quiz_Round junction
+            const grQuizRound = new GlideRecord('x_0221_quiz_app_quiz_round');
+            grQuizRound.initialize();
+            grQuizRound.setValue('quiz', quizSysId);
+            grQuizRound.setValue('round', roundSysId);
+            grQuizRound.insert();
+            result.counts.quizRounds++;
+
+            // Process questions in this round
+            for (const questionData of questions) {
+                const { textNl, answerNl, type: qType, category, difficulty, mediaType, media, fullscreen } = questionData;
+
+                // Find or create Category
+                const categorySysId = this._findOrCreateCategory(category);
+                if (categorySysId && !this._categoryCache[`__counted_${category}`]) {
+                    result.counts.categories++;
+                    this._categoryCache[`__counted_${category}`] = true;
+                }
+
+                // Create QA record
+                const grQa = new GlideRecord('x_0221_quiz_app_qa');
+                grQa.initialize();
+                grQa.setValue('question', textNl || '');
+                grQa.setValue('answer', answerNl || '');
+                const qaSysId = grQa.insert();
+
+                // Create Question with qa reference
+                const grQuestion = new GlideRecord('x_0221_quiz_app_question');
+                grQuestion.initialize();
+                grQuestion.setValue('question', textNl || '');
+                grQuestion.setValue('answer', answerNl || '');
+                grQuestion.setValue('qa', qaSysId);
+                grQuestion.setValue('type', qType || 'normal');
+                grQuestion.setValue('category', categorySysId);
+                grQuestion.setValue('difficulty', String(difficulty || ''));
+
+                if (mediaType) {
+                    grQuestion.setValue('media_type', mediaType);
+                }
+                if (media) {
+                    grQuestion.setValue('filename', media);
+                }
+                grQuestion.setValue('fullscreen', fullscreen ? 'true' : 'false');
+
+                const questionSysId = grQuestion.insert();
+                result.counts.questions++;
+
+                // Create Round_Question junction
+                const grRoundQuestion = new GlideRecord('x_0221_quiz_app_round_question');
+                grRoundQuestion.initialize();
+                grRoundQuestion.setValue('round', roundSysId);
+                grRoundQuestion.setValue('question', questionSysId);
+                grRoundQuestion.insert();
+                result.counts.roundQuestions++;
+            }
+        }
+
+        result.success = true;
+    } catch (e) {
+        result.success = false;
+        result.errors.push(`Error importing quiz: ${e.message}`);
+        gs.error(`importQuizJson: Error importing quiz - ${e.message}`);
+    }
+
+    return result;
+}
+
+/**
+ * Find an existing audience by name, or create a new one
+ * @param {string} name - The audience name
+ * @returns {string} The sys_id of the audience record
+ */
+function findOrCreateAudience(name) {
+    if (!name) {
+        return '';
+    }
+
+    const grAudience = new GlideRecord('x_0221_quiz_app_audience');
+    grAudience.addQuery('name', name);
+    grAudience.query();
+    if (grAudience.next()) {
+        return grAudience.getUniqueValue();
+    }
+
+    grAudience.initialize();
+    grAudience.setValue('name', name);
+    return grAudience.insert();
+}
