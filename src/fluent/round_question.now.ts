@@ -14,5 +14,8 @@ export const x_0221_quiz_app_round_question = Table({
             referenceTable: 'x_0221_quiz_app_question',
             mandatory: true,
         }),
+        number: IntegerColumn({
+            label: 'Question Number',
+        })        
     },
 });
