@@ -1,4 +1,4 @@
-import { Table, StringColumn } from '@servicenow/sdk/core';
+import { Table, StringColumn, ReferenceColumn } from '@servicenow/sdk/core';
 
 export const x_0221_quiz_app_raw_json = Table({
     name: 'x_0221_quiz_app_raw_json',
@@ -10,8 +10,13 @@ export const x_0221_quiz_app_raw_json = Table({
             maxLength: 40,
             mandatory: true,
         }),
+        quiz: ReferenceColumn({
+            label: 'Quiz',
+            referenceTable: 'x_0221_quiz_app_quiz',
+
+        }),
         json: StringColumn({
-            label: 'JSON',
+            label: 'Number',
             maxLength: 10000,
         }),
     },

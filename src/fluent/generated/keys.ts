@@ -45,6 +45,10 @@ declare global {
                         table: 'sys_module'
                         id: 'cb08713e5c9840beb6b708f03b3850dd'
                     }
+                    'process-import-action': {
+                        table: 'sys_ui_action'
+                        id: 'c43157e2ca394f41aa31d1e7554ff19c'
+                    }
                     'question-module': {
                         table: 'sys_app_module'
                         id: '7451ee798c0e42e097878e5b6a8e695e'
@@ -100,6 +104,14 @@ declare global {
                     'round-related-list': {
                         table: 'sys_ui_related_list'
                         id: '62ffe2a6fd4740a9a5041c4eddabb154'
+                    }
+                    'src_server_script-includes_importQuizJson_js': {
+                        table: 'sys_module'
+                        id: 'e4977768f6ad479daaff29e352f4d5ad'
+                    }
+                    'src_server_script-includes_io_js': {
+                        table: 'sys_module'
+                        id: '24759a2563204fd0b1886c245824192a'
                     }
                     'src_server_script-includes_quiz-importer_js': {
                         table: 'sys_module'
@@ -467,6 +479,15 @@ declare global {
                         key: {
                             name: 'x_0221_quiz_app_round'
                             element: 'theme'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: '42b3e246797c4bc295a284f96536e7cb'
+                        key: {
+                            name: 'x_0221_quiz_app_raw_json'
+                            element: 'quiz'
                             language: 'en'
                         }
                     },
@@ -1477,6 +1498,14 @@ declare global {
                         key: {
                             name: 'x_0221_quiz_app_round'
                             element: 'theme'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: 'd28faa7757ff427a9012b10060578478'
+                        key: {
+                            name: 'x_0221_quiz_app_raw_json'
+                            element: 'quiz'
                         }
                     },
                     {
