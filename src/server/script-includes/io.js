@@ -159,14 +159,12 @@ io.prototype = {
   writeQuizRecord: function(quizJson){
     const quizSysId = insertRecord('x_0221_quiz_app_quiz', quizJson, [ 'name', 'number', 'date', 'audience' ])
 
-    return;
-    
-    quizJson.rounds.forEach((roundJson, roundIndex) => {
-      const roundSysId = writeRound(roundJson, { quizSysId, roundIndex });
-      roundJson.questions.forEach((questionJson, questionIndex) => {
-        const questionSysId = writeQuestion(questionJson, { roundSysId, questionIndex })
-      })
-    })
+    // quizJson.rounds.forEach((roundJson, roundIndex) => {
+    //   const roundSysId = writeRound(roundJson, { quizSysId, roundIndex });
+    //   roundJson.questions.forEach((questionJson, questionIndex) => {
+    //     const questionSysId = writeQuestion(questionJson, { roundSysId, questionIndex })
+    //   })
+    // })
 
     return quizSysId;
   }  

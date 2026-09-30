@@ -1,4 +1,4 @@
-import { Table, StringColumn } from '@servicenow/sdk/core';
+import { Table, StringColumn, ChoiceColumn, ReferenceColumn } from '@servicenow/sdk/core';
 
 export const x_0221_quiz_app_qa = Table({
     name: 'x_0221_quiz_app_qa',
@@ -13,5 +13,16 @@ export const x_0221_quiz_app_qa = Table({
             label: 'Answer',
             maxLength: 400,
         }),
+        language: ChoiceColumn({
+            label: 'Language',
+            choices: {
+                en: 'English',
+                nl: 'Nederlands',
+            },
+        }),
+        parent: ReferenceColumn({
+            label: 'Parent',
+            referenceTable: 'x_0221_quiz_app_qa',
+        }),        
     },
 });

@@ -7,14 +7,10 @@ importQuizJson.prototype = {
 
     write: function (grRawJson) {
         const s = grRawJson.getValue('json');
-        json = JSON.parse(s);
+        const quizJson = getQuizJson(s, { convert: true })
 
-        writeQuiz(json);
+        writeQuiz(quizJson);
     },
-
-
-
-
 
     /**
      * Import a quiz from a raw_json record
@@ -227,6 +223,15 @@ importQuizJson.prototype = {
     type: 'importQuizJson',
 };
 
+function getQuizJson(s, { convert = false }) {
+    const json = JSON.parse(s);
+
+    if (convert) {
+        return convertQuiz(json);
+    }
+
+    return json;
+}
 
 function writeQuiz(quizJson) {
     const result = {
@@ -369,4 +374,38 @@ function findOrCreateAudience(name) {
     grAudience.initialize();
     grAudience.setValue('name', name);
     return grAudience.insert();
+}
+
+function convertQuiz(oldQuizJson) {
+    const quizJson = { ...oldQuizJson };
+    if (Array.isArray(quizJson.rounds)) {
+        quizJson.rounds = oldQuizJson.rounds.map(convertRound)
+    }
+
+    return quizJson;
+}
+
+function convertRound(oldRoundJson) {
+    const roundJson = { ...oldRoundJson };
+    if (Array.isArray(oldRoundJson.questions)) {
+        roundJson.questions = oldRoundJson.questions.map(convertQuestion);
+    }
+
+    return roundJson;
+}
+
+function convertQuestion(oldQuestionJson) {
+    const questionJson = { ...oldQuestionJson };
+    if (!questionJson.qa) {
+        questionJson.qa = {
+            nl: {
+                question: questionJson.textNl,
+                answer: questionJson.answerNl,
+            }
+        }
+    }
+    delete questionJson.textNl;
+    delete questionJson.answerNl;
+
+    return questionJson;
 }
