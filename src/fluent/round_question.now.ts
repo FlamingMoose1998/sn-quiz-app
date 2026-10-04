@@ -1,4 +1,4 @@
-import { Table, ReferenceColumn } from '@servicenow/sdk/core';
+import { Table, ReferenceColumn, IntegerColumn } from '@servicenow/sdk/core';
 
 export const x_0221_quiz_app_round_question = Table({
     name: 'x_0221_quiz_app_round_question',

@@ -1,173 +1,74 @@
-/**
- * ==========================================
- * Base Enums & Helper Schemas
- * ==========================================
- */
-
-/**
- * @typedef {1 | 2 | 3} Difficulty
- */
-
-/**
- * @typedef {'image' | 'audio' | 'video'} MediaType
- */
-
-/**
- * @typedef {Object} QA
- * @property {string} question
- * @property {string} answer
- */
-
-/**
- * ==========================================
- * Question Schemas
- * ==========================================
- */
-
-/**
- * @typedef {Object} QuestionBase
- * @property {string} type
- * @property {string} _id
- * @property {string} category
- * @property {string} media
- * @property {string} mediaPath
- * @property {MediaType} mediaType
- * @property {boolean} fullscreen
- * @property {number} [nr]
- * @property {string} [preset]
- */
-
-/**
- * @typedef {QuestionBase & {
- *   type: 'normal',
- *   qa: QA,
- *   difficulty: Difficulty,
- *   category: string
- * }} QuestionNormal
- */
-
-/**
- * @typedef {QuestionBase & {
- *   type: '1234',
- *   p1: QA,
- *   p2: QA,
- *   p3: QA,
- *   p4: QA
- * }} Question1234
- */
-
-/**
- * @typedef {QuestionNormal | Question1234} Question
- */
-
-/**
- * ==========================================
- * Round Schemas
- * ==========================================
- */
-
-/**
- * @typedef {Object} RoundBase
- * @property {string} _id
- * @property {string} name
- */
-
-/**
- * @typedef {RoundBase & {
- *   type: 'normal',
- *   questions: Question[]
- * }} RoundNormal
- */
-
-/**
- * @typedef {RoundBase & {
- *   type: '1234',
- *   questions: Question1234[]
- * }} Round1234
- */
-
-/**
- * @typedef {RoundBase & {
- *   type: '1ak',
- *   answers: string[],
- *   mediaPath: string,
- *   media: string
- * }} Round1ak
- */
-
-/**
- * @typedef {RoundBase & {
- *   type: 'match2',
- *   answers: string[],
- *   mediaPath: string,
- *   media: string
- * }} RoundMatch2
- */
-
-/**
- * @typedef {RoundBase & {
- *   type: 'special'
- * }} RoundSpecial
- */
-
-/**
- * @typedef {Object} RoundHandoutQuestion
- * @property {string} answerNl
- */
-
-/**
- * @typedef {RoundBase & {
- *   type: 'handout',
- *   mediaPath: string,
- *   media: string,
- *   questions: RoundHandoutQuestion[]
- * }} RoundHandout
- */
-
-/**
- * @typedef {RoundNormal | Round1234 | Round1ak | RoundMatch2 | RoundSpecial | RoundHandout} Round
- */
-
-/**
- * ==========================================
- * Quiz Schema
- * ==========================================
- */
-
-/**
- * @typedef {Object} Quiz
- * @property {string} _id
- * @property {string} name
- * @property {string} number
- * @property {string} fullName
- * @property {string} audience
- * @property {string} date
- * @property {Round[]} rounds
- */
-
-
-// @ts-ignore
-var io = Class.create();
+// @ts-nocheck
+var io = Class.create()
 io.prototype = {
-  initialize: function(){},
-  
-  /**
-   * Writes a quiz and all its components to the database
-   * @param {Quiz} quizJson
-   * @returns {string} quizSysId
-   */
-  writeQuizRecord: function(quizJson){
-    const quizSysId = insertRecord('x_0221_quiz_app_quiz', quizJson, [ 'name', 'number', 'date', 'audience' ])
+    initialize: function ({ enableLogging = true }) {
+        this.report = {
+            counts: {
+                quizzes: 0,
+                rounds: 0,
+                questions: 0,
+            },
+        }
 
-    // quizJson.rounds.forEach((roundJson, roundIndex) => {
-    //   const roundSysId = writeRound(roundJson, { quizSysId, roundIndex });
-    //   roundJson.questions.forEach((questionJson, questionIndex) => {
-    //     const questionSysId = writeQuestion(questionJson, { roundSysId, questionIndex })
-    //   })
-    // })
+        if (enableLogging) {
+            this.logger = new x_0221_quiz_app.log({ enableLogging: true })
+        }
+    },
 
-    return quizSysId;
-  }  
+    /**
+     * Writes a quiz and all its components to the database
+     * @param {Quiz} quizJson
+     * @returns {string} quizSysId
+     */
+    writeQuiz: function (quizJson) {
+        quizJson.audience = this.getSysId('x_0221_quiz_app_audience', 'name', quizJson.audience)
+
+        const [day, month, year] = quizJson.date.split('-')
+        quizJson.date = `${year}-${month}-${day}`
+
+        const quizSysId = insertRecord('x_0221_quiz_app_quiz', quizJson, ['name', 'number', 'audience'])
+        this.report.counts.quizzes++
+
+        // quizJson.rounds.forEach((roundJson, roundIndex) => {
+        //   const roundSysId = writeRound(roundJson, { quizSysId, roundIndex });
+        //   roundJson.questions.forEach((questionJson, questionIndex) => {
+        //     const questionSysId = writeQuestion(questionJson, { roundSysId, questionIndex })
+        //   })
+        // })
+
+        return quizSysId
+    },
+
+    getReport: function () {
+        return this.report
+    },
+
+    /**
+     * Finds the first record for which the fieldName's value matches value
+     * and returns its sys_id.
+     * If no record is found, a record with that field/value is created.
+     * If more than one record matches the query, only the first result is returned.
+     * @param {string} tableName - name of the table to be queried
+     * @param {string} fieldName
+     * @param {string} value
+     * @returns {string} sys_id
+     */
+    getSysId: function (tableName, fieldName, value) {
+        for (const arg of arguments) {
+            if (typeof arg !== 'string') throw new Error(`Argument ${arg} missing or wrong type`)
+        }
+
+        const gr = new GlideRecord(tableName)
+        let sysId
+        if (gr.get(fieldName, value)) {
+            sysId = gr.getValue('sys_id')
+        } else {
+            gr.setValue(fieldName, value)
+            sysId = gr.insert()
+        }
+
+        return sysId
+    },
 }
 
 /**
@@ -179,20 +80,20 @@ io.prototype = {
  * @param {number|null} options.roundIndex
  * @returns {string} roundSysId
  */
-function writeRound(roundJson, { quizSysId = null, roundIndex = null}){
-  const roundSysId = insertRecord('x_0221_quiz_app_round', roundJson, [ 'name', 'number', 'type', 'theme' ]);
+function writeRound(roundJson, { quizSysId = null, roundIndex = null }) {
+    const roundSysId = insertRecord('x_0221_quiz_app_round', roundJson, ['name', 'number', 'type', 'theme'])
 
-  if (typeof quizSysId === null || roundIndex === null){
-    return roundSysId;
-  }
-  
-  insertRecord('x_0221_quiz_app_quiz_round', { 
-    quiz: quizSysId,
-    round: roundSysId,
-    number: roundIndex+1,
-  })
-  
-  return roundSysId;
+    if (typeof quizSysId === null || roundIndex === null) {
+        return roundSysId
+    }
+
+    insertRecord('x_0221_quiz_app_quiz_round', {
+        quiz: quizSysId,
+        round: roundSysId,
+        number: roundIndex + 1,
+    })
+
+    return roundSysId
 }
 
 /**
@@ -204,53 +105,50 @@ function writeRound(roundJson, { quizSysId = null, roundIndex = null}){
  * @param {number|null} options.questionIndex
  * @returns {string} questionSysId
  */
-function writeQuestion(questionJson, { roundSysId = null, questionIndex }){
-  switch (questionJson.type){
-    case '1234': 
-      ['p1', 'p2', 'p3', 'p4'].forEach(p => {
-        const qaSysId = insertQA(questionJson[p])
-        //insertQA(questionJson[p].question, questionJson[p].answer, 'nl');
-        questionJson[p] = qaSysId;
-      })
-      break;
-    case 'normal':
-      const qaSysId = insertQA(questionJson.qa)
-      //insertQA(questionJson.textNl, questionJson.answerNl, 'nl');
-      questionJson.qa = qaSysId;
-      break;
-    default:
-      throw new Error('invalid question type')
+function writeQuestion(questionJson, { roundSysId = null, questionIndex }) {
+    switch (questionJson.type) {
+        case '1234':
+            ;['p1', 'p2', 'p3', 'p4'].forEach((p) => {
+                const qaSysId = insertQA(questionJson[p])
+                //insertQA(questionJson[p].question, questionJson[p].answer, 'nl');
+                questionJson[p] = qaSysId
+            })
+            break
+        case 'normal':
+            const qaSysId = insertQA(questionJson.qa)
+            //insertQA(questionJson.textNl, questionJson.answerNl, 'nl');
+            questionJson.qa = qaSysId
+            break
+        default:
+            throw new Error('invalid question type')
+    }
 
-  }
+    const questionSysId = insertRecord('x_0221_quiz_app_question', questionJson)
+    if (typeof roundSysId === 'string') {
+        insertRecord('x_0221_quiz_app_round_question', {
+            round: roundSysId,
+            question: questionSysId,
+            number: questionIndex + 1,
+        })
+    }
 
-  const questionSysId = insertRecord('x_0221_quiz_app_question', questionJson);
-  if (typeof roundSysId === 'string'){
-    insertRecord('x_0221_quiz_app_round_question', { 
-      round: roundSysId,
-      question: questionSysId,
-      number: questionIndex+1,
+    return questionSysId
+}
+
+function insertQA(languagueObject) {
+    const language = 'nl'
+    const { question, answer } = languagueObject[language]
+
+    return insertRecord('x_0221_quiz_app_qa', { question, answer, language })
+}
+
+function insertRecord(table, record, fields = null) {
+    const fieldList = fields === null ? Object.keys(record) : fields
+
+    const gr = new GlideRecord(table)
+    fieldList.forEach((fieldName) => {
+        gr.setValue(fieldName, record[fieldName])
     })
-  }
 
-  return questionSysId;
-}
-
-function insertQA(languagueObject){
-  const language = 'nl'
-  const { question, answer } = languagueObject[language];
-
-  return insertRecord('x_0221_quiz_app_qa', { question, answer, language });
-}
-
-
-
-function insertRecord(table, record, fields = null){
-  const fieldList = fields === null ? Object.keys(record) : fields;
-
-  const gr = new GlideRecord(table);
-  fieldList.forEach(field => {
-    gr.setValue(field, record[field]);
-  })
-
-  return gr.insert()
+    return gr.insert()
 }

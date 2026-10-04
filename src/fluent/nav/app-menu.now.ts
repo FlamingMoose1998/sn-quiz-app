@@ -100,3 +100,16 @@ Record({
         order: 700,
     },
 });
+
+Record({
+    $id: Now.ID["raw-json-module"],
+    table: "sys_app_module",
+    data: {
+        title: "Raw JSON",
+        application: appMenu,
+        link_type: "LIST",
+        name: "x_0221_quiz_app_raw_json",
+        active: true,
+        order: 800,
+    },
+});
