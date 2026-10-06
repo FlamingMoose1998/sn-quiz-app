@@ -23,39 +23,48 @@ Record({
     },
 })
 Record({
-    $id: Now.ID['1acb6ee48323cfd0429b6260ceaad38a'],
+    $id: Now.ID['44d8b0a8833b4394429b6260ceaad399'],
     table: 'sys_ui_element',
     data: {
-        element: 'round',
+        element: 'quiz',
         position: 1,
         sys_ui_section: '52cb6ee48323cfd0429b6260ceaad382',
     },
 })
 Record({
-    $id: Now.ID['d2cb6ee48323cfd0429b6260ceaad38b'],
+    $id: Now.ID['00d8b0a8833b4394429b6260ceaad39a'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'round',
+        position: 2,
+        sys_ui_section: '52cb6ee48323cfd0429b6260ceaad382',
+    },
+})
+Record({
+    $id: Now.ID['c8d8b0a8833b4394429b6260ceaad39a'],
     table: 'sys_ui_element',
     data: {
         element: '.split',
-        position: 2,
+        position: 3,
         sys_ui_section: '52cb6ee48323cfd0429b6260ceaad382',
         type: '.split',
     },
 })
 Record({
-    $id: Now.ID['9ecb6ee48323cfd0429b6260ceaad38b'],
+    $id: Now.ID['84d8b0a8833b4394429b6260ceaad39b'],
     table: 'sys_ui_element',
     data: {
-        element: 'quiz',
-        position: 3,
+        element: 'number',
+        position: 4,
         sys_ui_section: '52cb6ee48323cfd0429b6260ceaad382',
     },
 })
 Record({
-    $id: Now.ID['5acb6ee48323cfd0429b6260ceaad38c'],
+    $id: Now.ID['40d8b0a8833b4394429b6260ceaad39c'],
     table: 'sys_ui_element',
     data: {
         element: '.end_split',
-        position: 4,
+        position: 5,
         sys_ui_section: '52cb6ee48323cfd0429b6260ceaad382',
         type: '.end_split',
     },
