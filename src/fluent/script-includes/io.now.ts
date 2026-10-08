@@ -5,7 +5,7 @@ ScriptInclude({
     $id: Now.ID['Io'],
     name: 'io',
     script: Now.include('../../server/script-includes/io.js'),
-    description: 'Handles reading and writing quiz objects',
+    description: '',
     accessibleFrom: 'public',
     apiName: 'x_0221_quiz_app.io',
     clientCallable: false,

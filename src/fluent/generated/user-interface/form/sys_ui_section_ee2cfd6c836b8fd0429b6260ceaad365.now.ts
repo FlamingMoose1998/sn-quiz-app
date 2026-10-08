@@ -13,61 +13,6 @@ Record({
     },
 })
 Record({
-    $id: Now.ID['bb17390583f78794429b6260ceaad33e'],
-    table: 'sys_ui_element',
-    data: {
-        element: 'qa',
-        position: 0,
-        sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
-    },
-})
-Record({
-    $id: Now.ID['7717390583f78794429b6260ceaad33f'],
-    table: 'sys_ui_element',
-    data: {
-        element: 'qa.question',
-        position: 1,
-        sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
-    },
-})
-Record({
-    $id: Now.ID['3317390583f78794429b6260ceaad340'],
-    table: 'sys_ui_element',
-    data: {
-        element: 'qa.answer',
-        position: 2,
-        sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
-    },
-})
-Record({
-    $id: Now.ID['fb17390583f78794429b6260ceaad340'],
-    table: 'sys_ui_element',
-    data: {
-        element: '.begin_split',
-        position: 3,
-        sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
-        type: '.begin_split',
-    },
-})
-Record({
-    $id: Now.ID['b717390583f78794429b6260ceaad341'],
-    table: 'sys_ui_element',
-    data: {
-        element: 'type',
-        position: 4,
-        sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
-    },
-})
-Record({
-    $id: Now.ID['7317390583f78794429b6260ceaad342'],
-    table: 'sys_ui_element',
-    data: {
-        element: 'media_type',
-        position: 5,
-        sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
-    },
-})
-Record({
     $id: Now.ID['3f17390583f78794429b6260ceaad342'],
     table: 'sys_ui_element',
     data: {
@@ -78,30 +23,94 @@ Record({
     },
 })
 Record({
-    $id: Now.ID['bf17390583f78794429b6260ceaad34f'],
+    $id: Now.ID['f2046a5983334b94429b6260ceaad3eb'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'qa.question',
+        position: 0,
+        sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
+    },
+})
+Record({
+    $id: Now.ID['be046a5983334b94429b6260ceaad3f8'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'qa.answer',
+        position: 1,
+        sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
+    },
+})
+Record({
+    $id: Now.ID['7a046a5983334b94429b6260ceaad3f9'],
+    table: 'sys_ui_element',
+    data: {
+        element: '.begin_split',
+        position: 2,
+        sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
+        type: '.begin_split',
+    },
+})
+Record({
+    $id: Now.ID['36046a5983334b94429b6260ceaad3fa'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'type',
+        position: 3,
+        sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
+    },
+})
+Record({
+    $id: Now.ID['fe046a5983334b94429b6260ceaad3fa'],
     table: 'sys_ui_element',
     data: {
         element: 'category',
+        position: 4,
+        sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
+    },
+})
+Record({
+    $id: Now.ID['ba046a5983334b94429b6260ceaad3fb'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'difficulty',
+        position: 5,
+        sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
+    },
+})
+Record({
+    $id: Now.ID['32046a5983334b94429b6260ceaad3fd'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'media_type',
         position: 7,
         sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
     },
 })
 Record({
-    $id: Now.ID['7b17390583f78794429b6260ceaad350'],
-    table: 'sys_ui_element',
-    data: {
-        element: '.end_split',
-        position: 8,
-        sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
-        type: '.end_split',
-    },
-})
-Record({
-    $id: Now.ID['3717390583f78794429b6260ceaad351'],
+    $id: Now.ID['fa046a5983334b94429b6260ceaad3fd'],
     table: 'sys_ui_element',
     data: {
         element: 'filename',
+        position: 8,
+        sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
+    },
+})
+Record({
+    $id: Now.ID['b6046a5983334b94429b6260ceaad3fe'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'fullscreen',
         position: 9,
         sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
+    },
+})
+Record({
+    $id: Now.ID['72046a5983334b94429b6260ceaad3ff'],
+    table: 'sys_ui_element',
+    data: {
+        element: '.end_split',
+        position: 10,
+        sys_ui_section: 'ee2cfd6c836b8fd0429b6260ceaad365',
+        type: '.end_split',
     },
 })

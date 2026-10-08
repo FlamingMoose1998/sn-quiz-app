@@ -5,6 +5,10 @@ declare global {
         namespace Internal {
             interface Keys extends KeysRegistry {
                 explicit: {
+                    '0798aad183734b94429b6260ceaad3c3': {
+                        table: 'sys_ui_related_list_entry'
+                        id: '0798aad183734b94429b6260ceaad3c3'
+                    }
                     '0b6beea48323cfd0429b6260ceaad39f': {
                         table: 'sys_scope_privilege'
                         id: '0b6beea48323cfd0429b6260ceaad39f'
@@ -13,9 +17,33 @@ declare global {
                         table: 'sys_scope_privilege'
                         id: '0b6beea48323cfd0429b6260ceaad3a3'
                     }
+                    '2bfe32d583374b94429b6260ceaad377': {
+                        table: 'sys_script_include'
+                        id: '2bfe32d583374b94429b6260ceaad377'
+                    }
+                    '308203898373c794429b6260ceaad3b4': {
+                        table: 'sys_scope_privilege'
+                        id: '308203898373c794429b6260ceaad3b4'
+                    }
+                    '39110b0d8333c794429b6260ceaad31c': {
+                        table: 'sys_script_include'
+                        id: '39110b0d8333c794429b6260ceaad31c'
+                    }
+                    '3d3a1b91833b4b94429b6260ceaad370': {
+                        table: 'sys_script_include'
+                        id: '3d3a1b91833b4b94429b6260ceaad370'
+                    }
+                    '3fec3fdd83fb4b94429b6260ceaad3c7': {
+                        table: 'sys_script_include'
+                        id: '3fec3fdd83fb4b94429b6260ceaad3c7'
+                    }
                     '4b6beea48323cfd0429b6260ceaad39a': {
                         table: 'sys_scope_privilege'
                         id: '4b6beea48323cfd0429b6260ceaad39a'
+                    }
+                    '4b98aad183734b94429b6260ceaad3c0': {
+                        table: 'sys_ui_related_list'
+                        id: '4b98aad183734b94429b6260ceaad3c0'
                     }
                     '5b6b22e48323cfd0429b6260ceaad319': {
                         table: 'sys_scope_privilege'
@@ -24,6 +52,14 @@ declare global {
                     '5d96634083bb8f54429b6260ceaad321': {
                         table: 'sys_script_include'
                         id: '5d96634083bb8f54429b6260ceaad321'
+                    }
+                    '6cc8621583734b94429b6260ceaad34f': {
+                        table: 'sys_ui_related_list_entry'
+                        id: '6cc8621583734b94429b6260ceaad34f'
+                    }
+                    '6ea4c8fd83330f94429b6260ceaad393': {
+                        table: 'sys_script_include'
+                        id: '6ea4c8fd83330f94429b6260ceaad393'
                     }
                     '726ba2648323cfd0429b6260ceaad3ac': {
                         table: 'sys_scope_privilege'
@@ -36,6 +72,10 @@ declare global {
                     a09200e383270b54429b6260ceaad363: {
                         table: 'par_dashboard_widget'
                         id: 'a09200e383270b54429b6260ceaad363'
+                    }
+                    a4c8621583734b94429b6260ceaad34e: {
+                        table: 'sys_ui_related_list'
+                        id: 'a4c8621583734b94429b6260ceaad34e'
                     }
                     'audience-module': {
                         table: 'sys_app_module'
@@ -69,9 +109,17 @@ declare global {
                         table: 'sys_ui_action'
                         id: '293804ad87bb4854a0df81135ec2c6b9'
                     }
+                    e4c8621583734b94429b6260ceaad34f: {
+                        table: 'sys_ui_related_list_entry'
+                        id: 'e4c8621583734b94429b6260ceaad34f'
+                    }
                     ef2d08ab83670b54429b6260ceaad300: {
                         table: 'par_dashboard_widget'
                         id: 'ef2d08ab83670b54429b6260ceaad300'
+                    }
+                    ff2f3ad583374b94429b6260ceaad383: {
+                        table: 'sys_script_include'
+                        id: 'ff2f3ad583374b94429b6260ceaad383'
                     }
                     Io: {
                         table: 'sys_script_include'
@@ -240,6 +288,7 @@ declare global {
                     {
                         table: 'sys_documentation'
                         id: '0b0bb9373496440cb7e562a4487d3f98'
+                        deleted: true
                         key: {
                             name: 'x_0221_quiz_app_round'
                             element: 'path'
@@ -331,6 +380,7 @@ declare global {
                     {
                         table: 'sys_ui_element'
                         id: '20bb6ae48323cfd0429b6260ceaad3ea'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: '6cbb6ae48323cfd0429b6260ceaad3ab'
@@ -355,6 +405,7 @@ declare global {
                     {
                         table: 'sys_documentation'
                         id: '217f9e915520416ca0548d3d0f582604'
+                        deleted: true
                         key: {
                             name: 'x_0221_quiz_app_round'
                             element: 'name'
@@ -362,8 +413,26 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '24196e1583734b94429b6260ceaad30c'
+                        key: {
+                            sys_ui_section: {
+                                id: '6cbb6ae48323cfd0429b6260ceaad3ab'
+                                key: {
+                                    name: 'x_0221_quiz_app_round'
+                                    caption: 'NULL'
+                                    view: 'Default view'
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'type'
+                            position: '2'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '260c2059b59940be89569c84b09faef6'
+                        deleted: false
                         key: {
                             name: 'x_0221_quiz_app_raw_json'
                             element: 'NULL'
@@ -496,6 +565,23 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '32046a5983334b94429b6260ceaad3fd'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ee2cfd6c836b8fd0429b6260ceaad365'
+                                key: {
+                                    name: 'x_0221_quiz_app_question'
+                                    caption: 'NULL'
+                                    view: 'Default view'
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'media_type'
+                            position: '7'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '326410d2447c43caa62007067c1e1bee'
                         key: {
@@ -507,6 +593,7 @@ declare global {
                     {
                         table: 'sys_ui_element'
                         id: '3317390583f78794429b6260ceaad340'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: 'ee2cfd6c836b8fd0429b6260ceaad365'
@@ -541,6 +628,7 @@ declare global {
                     {
                         table: 'sys_documentation'
                         id: '34471382b24b4c1891ff51d1dd56ac50'
+                        deleted: false
                         key: {
                             name: 'x_0221_quiz_app_raw_json'
                             element: 'NULL'
@@ -550,6 +638,7 @@ declare global {
                     {
                         table: 'sys_dictionary'
                         id: '353425940bbc484494363e060d05a7d6'
+                        deleted: true
                         key: {
                             name: 'x_0221_quiz_app_round'
                             element: 'path'
@@ -574,7 +663,25 @@ declare global {
                     },
                     {
                         table: 'sys_ui_element'
+                        id: '36046a5983334b94429b6260ceaad3fa'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ee2cfd6c836b8fd0429b6260ceaad365'
+                                key: {
+                                    name: 'x_0221_quiz_app_question'
+                                    caption: 'NULL'
+                                    view: 'Default view'
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'type'
+                            position: '3'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
                         id: '3717390583f78794429b6260ceaad351'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: 'ee2cfd6c836b8fd0429b6260ceaad365'
@@ -705,6 +812,7 @@ declare global {
                     {
                         table: 'sys_documentation'
                         id: '42b3e246797c4bc295a284f96536e7cb'
+                        deleted: true
                         key: {
                             name: 'x_0221_quiz_app_raw_json'
                             element: 'quiz'
@@ -984,6 +1092,7 @@ declare global {
                     {
                         table: 'sys_db_object'
                         id: '6040986f3b3041faacc8e37394593238'
+                        deleted: false
                         key: {
                             name: 'x_0221_quiz_app_raw_json'
                         }
@@ -991,6 +1100,7 @@ declare global {
                     {
                         table: 'sys_dictionary'
                         id: '60736c121e8f44bbb9ed813065e549cf'
+                        deleted: true
                         key: {
                             name: 'x_0221_quiz_app_round'
                             element: 'name'
@@ -1038,6 +1148,7 @@ declare global {
                     {
                         table: 'ua_table_licensing_config'
                         id: '62d00fe3186f4fb7b60f295938ec0a5c'
+                        deleted: false
                         key: {
                             name: 'x_0221_quiz_app_raw_json'
                         }
@@ -1062,6 +1173,7 @@ declare global {
                     {
                         table: 'sys_ui_element'
                         id: '64bb6ae48323cfd0429b6260ceaad3e9'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: '6cbb6ae48323cfd0429b6260ceaad3ab'
@@ -1134,6 +1246,23 @@ declare global {
                             name: 'x_0221_quiz_app_question'
                             element: 'question'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '68196e1583734b94429b6260ceaad30b'
+                        key: {
+                            sys_ui_section: {
+                                id: '6cbb6ae48323cfd0429b6260ceaad3ab'
+                                key: {
+                                    name: 'x_0221_quiz_app_round'
+                                    caption: 'NULL'
+                                    view: 'Default view'
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.split'
+                            position: '1'
                         }
                     },
                     {
@@ -1275,7 +1404,25 @@ declare global {
                     },
                     {
                         table: 'sys_ui_element'
+                        id: '72046a5983334b94429b6260ceaad3ff'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ee2cfd6c836b8fd0429b6260ceaad365'
+                                key: {
+                                    name: 'x_0221_quiz_app_question'
+                                    caption: 'NULL'
+                                    view: 'Default view'
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.end_split'
+                            position: '10'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
                         id: '7317390583f78794429b6260ceaad342'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: 'ee2cfd6c836b8fd0429b6260ceaad365'
@@ -1327,6 +1474,7 @@ declare global {
                     {
                         table: 'sys_ui_element'
                         id: '7717390583f78794429b6260ceaad33f'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: 'ee2cfd6c836b8fd0429b6260ceaad365'
@@ -1370,6 +1518,23 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '7a046a5983334b94429b6260ceaad3f9'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ee2cfd6c836b8fd0429b6260ceaad365'
+                                key: {
+                                    name: 'x_0221_quiz_app_question'
+                                    caption: 'NULL'
+                                    view: 'Default view'
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.begin_split'
+                            position: '2'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '7a152cd0246745d2a98d1025fa8720cc'
                         key: {
@@ -1381,6 +1546,7 @@ declare global {
                     {
                         table: 'sys_ui_element'
                         id: '7b17390583f78794429b6260ceaad350'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: 'ee2cfd6c836b8fd0429b6260ceaad365'
@@ -1449,6 +1615,7 @@ declare global {
                     {
                         table: 'sys_dictionary'
                         id: '803bf10658664b33b588dcf581723518'
+                        deleted: true
                         key: {
                             name: 'x_0221_quiz_app_round'
                             element: 'number'
@@ -1556,6 +1723,7 @@ declare global {
                     {
                         table: 'sys_documentation'
                         id: '9427d63751924f999ac4bc79c469eb7b'
+                        deleted: true
                         key: {
                             name: 'x_0221_quiz_app_round'
                             element: 'number'
@@ -1712,6 +1880,7 @@ declare global {
                     {
                         table: 'sys_ui_element'
                         id: 'a8bb6ae48323cfd0429b6260ceaad3e8'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: '6cbb6ae48323cfd0429b6260ceaad3ab'
@@ -1798,9 +1967,27 @@ declare global {
                     {
                         table: 'sys_dictionary'
                         id: 'b4382092321545e6bd48112f343dc683'
+                        deleted: false
                         key: {
                             name: 'x_0221_quiz_app_raw_json'
                             element: 'name'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: 'b6046a5983334b94429b6260ceaad3fe'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ee2cfd6c836b8fd0429b6260ceaad365'
+                                key: {
+                                    name: 'x_0221_quiz_app_question'
+                                    caption: 'NULL'
+                                    view: 'Default view'
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'fullscreen'
+                            position: '9'
                         }
                     },
                     {
@@ -1813,6 +2000,7 @@ declare global {
                     {
                         table: 'sys_ui_element'
                         id: 'b717390583f78794429b6260ceaad341'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: 'ee2cfd6c836b8fd0429b6260ceaad365'
@@ -1861,6 +2049,23 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: 'ba046a5983334b94429b6260ceaad3fb'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ee2cfd6c836b8fd0429b6260ceaad365'
+                                key: {
+                                    name: 'x_0221_quiz_app_question'
+                                    caption: 'NULL'
+                                    view: 'Default view'
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'difficulty'
+                            position: '5'
+                        }
+                    },
+                    {
                         table: 'par_dashboard_canvas'
                         id: 'bb02086383270b54429b6260ceaad376'
                         key: {
@@ -1871,6 +2076,7 @@ declare global {
                     {
                         table: 'sys_ui_element'
                         id: 'bb17390583f78794429b6260ceaad33e'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: 'ee2cfd6c836b8fd0429b6260ceaad365'
@@ -1903,8 +2109,26 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: 'be046a5983334b94429b6260ceaad3f8'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ee2cfd6c836b8fd0429b6260ceaad365'
+                                key: {
+                                    name: 'x_0221_quiz_app_question'
+                                    caption: 'NULL'
+                                    view: 'Default view'
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'qa.answer'
+                            position: '1'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: 'bf0a3711b36b4124af4ba7b79842afd4'
+                        deleted: false
                         key: {
                             name: 'x_0221_quiz_app_raw_json'
                             element: 'json'
@@ -1913,6 +2137,7 @@ declare global {
                     {
                         table: 'sys_ui_element'
                         id: 'bf17390583f78794429b6260ceaad34f'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: 'ee2cfd6c836b8fd0429b6260ceaad365'
@@ -1980,6 +2205,7 @@ declare global {
                     {
                         table: 'sys_index'
                         id: 'cc49dfd7655d4a929244c4243b57b795'
+                        deleted: true
                         key: {
                             logical_table_name: 'x_0221_quiz_app_raw_json'
                             col_name_string: 'quiz'
@@ -2036,6 +2262,7 @@ declare global {
                     {
                         table: 'sys_dictionary'
                         id: 'd28faa7757ff427a9012b10060578478'
+                        deleted: true
                         key: {
                             name: 'x_0221_quiz_app_raw_json'
                             element: 'quiz'
@@ -2183,6 +2410,7 @@ declare global {
                     {
                         table: 'sys_documentation'
                         id: 'dbfed7ac5b4c4dc3805ad552cd4f3ac9'
+                        deleted: false
                         key: {
                             name: 'x_0221_quiz_app_raw_json'
                             element: 'name'
@@ -2324,6 +2552,7 @@ declare global {
                     {
                         table: 'sys_ui_element'
                         id: 'e8bb6ae48323cfd0429b6260ceaad3ea'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: '6cbb6ae48323cfd0429b6260ceaad3ab'
@@ -2364,6 +2593,23 @@ declare global {
                     },
                     {
                         table: 'sys_ui_element'
+                        id: 'ec196e1583734b94429b6260ceaad30c'
+                        key: {
+                            sys_ui_section: {
+                                id: '6cbb6ae48323cfd0429b6260ceaad3ab'
+                                key: {
+                                    name: 'x_0221_quiz_app_round'
+                                    caption: 'NULL'
+                                    view: 'Default view'
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.end_split'
+                            position: '3'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
                         id: 'ee2cf1ac836b8fd0429b6260ceaad31f'
                         deleted: true
                         key: {
@@ -2398,6 +2644,7 @@ declare global {
                     {
                         table: 'sys_documentation'
                         id: 'f147b6b1872d49c98c6b3234a2539599'
+                        deleted: false
                         key: {
                             name: 'x_0221_quiz_app_raw_json'
                             element: 'json'
@@ -2430,6 +2677,23 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: 'f2046a5983334b94429b6260ceaad3eb'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ee2cfd6c836b8fd0429b6260ceaad365'
+                                key: {
+                                    name: 'x_0221_quiz_app_question'
+                                    caption: 'NULL'
+                                    view: 'Default view'
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'qa.question'
+                            position: '0'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: 'f4b04f952adb43e483dff2b07bc5dc16'
                         key: {
@@ -2447,6 +2711,23 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: 'fa046a5983334b94429b6260ceaad3fd'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ee2cfd6c836b8fd0429b6260ceaad365'
+                                key: {
+                                    name: 'x_0221_quiz_app_question'
+                                    caption: 'NULL'
+                                    view: 'Default view'
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'filename'
+                            position: '8'
+                        }
+                    },
+                    {
                         table: 'sys_user_role'
                         id: 'fa80fbc483fb8f54429b6260ceaad30d'
                         key: {
@@ -2456,6 +2737,7 @@ declare global {
                     {
                         table: 'sys_ui_element'
                         id: 'fb17390583f78794429b6260ceaad340'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: 'ee2cfd6c836b8fd0429b6260ceaad365'
@@ -2484,6 +2766,23 @@ declare global {
                                 }
                             }
                             element: 'audience'
+                            position: '4'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: 'fe046a5983334b94429b6260ceaad3fa'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ee2cfd6c836b8fd0429b6260ceaad365'
+                                key: {
+                                    name: 'x_0221_quiz_app_question'
+                                    caption: 'NULL'
+                                    view: 'Default view'
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'category'
                             position: '4'
                         }
                     },

@@ -29,19 +29,23 @@ function processImport() {
     // const importer = new x_0221_quiz_app.QuizImporter();
     // const result = importer.importQuiz(current.getUniqueValue());
 	const quizSysId = current.getValue('sys_id');
-	const io = new x_0221_quiz_app.io();
 	const s = current.getValue('json')
 	const json = JSON.parse(s);
-	io.writeQuiz(json);
-	const result = io.getReport();
+//	const io = new x_0221_quiz_app.ioWrite();
+//	io.writeQuiz(json);
+
+	const ioQuiz = new new x_0221_quiz_app.ioQuiz();
+	ioQuiz.write(json);
+	// const result = io.getReport();
 	
-    if (result.errors.length === 0) {
-        gs.addInfoMessage('Quiz imported: ' + result.counts.quizzes + ' quiz, ' + result.counts.rounds + ' rounds, ' + result.counts.questions + ' questions');
-        action.setRedirectURL('x_0221_quiz_app_quiz.do?sys_id=' + result.quizId);
-    } else {
-        gs.addErrorMessage('Import failed: ' + result.errors.join(', '));
-        action.setRedirectURL(current);
-    }
+    // if (result.errors.length === 0) {
+    //     gs.addInfoMessage('Quiz imported: ' + result.counts.quizzes + ' quiz, ' + result.counts.rounds + ' rounds, ' + result.counts.questions + ' questions');
+    //     action.setRedirectURL('x_0221_quiz_app_quiz.do?sys_id=' + result.quizId);
+    // } else {
+    //     gs.addErrorMessage('Import failed: ' + result.errors.join(', '));
+    //     action.setRedirectURL(current);
+    // }
+
 }`,
     workspace: {
         clientScriptV2: `function onClick(g_form) {

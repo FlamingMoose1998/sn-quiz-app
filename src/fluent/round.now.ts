@@ -5,14 +5,6 @@ export const x_0221_quiz_app_round = Table({
     label: 'Round',
     display: 'name',
     schema: {
-        name: StringColumn({
-            label: 'Name',
-            maxLength: 40,
-        }),
-        number: StringColumn({
-            label: 'Number',
-            maxLength: 40,
-        }),
         type: ChoiceColumn({
             label: 'Type',
             choices: {
@@ -24,10 +16,6 @@ export const x_0221_quiz_app_round = Table({
         theme: StringColumn({
             label: 'Theme',
             maxLength: 40,
-        }),
-        path: StringColumn({
-            label: 'Path',
-            maxLength: 400,
         }),
     },
 });
